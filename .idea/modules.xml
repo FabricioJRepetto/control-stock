@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/1846-Java-y-JDBC-Trabajando-con-una-Base-de-Datos-aula-2-views.iml" filepath="$PROJECT_DIR$/.idea/1846-Java-y-JDBC-Trabajando-con-una-Base-de-Datos-aula-2-views.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java-y-JDBC.iml" filepath="$PROJECT_DIR$/.idea/Java-y-JDBC.iml" />
     </modules>
   </component>
 </project>

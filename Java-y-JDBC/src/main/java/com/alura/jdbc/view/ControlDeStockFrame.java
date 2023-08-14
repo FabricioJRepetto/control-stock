@@ -50,13 +50,21 @@ public class ControlDeStockFrame extends JFrame {
     }
 
     private void configurarTablaDeContenido(Container container) {
-        tabla = new JTable();
+        tabla = new JTable() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 0 ? false : true;
+            }
+        };
 
         modelo = (DefaultTableModel) tabla.getModel();
-        modelo.addColumn("Identificador del Producto");
-        modelo.addColumn("Nombre del Producto");
-        modelo.addColumn("Descripción del Producto");
+        modelo.addColumn("ID");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Descripción");
         modelo.addColumn("Cantidad");
+
+        tabla.getColumnModel().getColumn(0).setMaxWidth(75);
+        tabla.getColumnModel().getColumn(2).setPreferredWidth(330);
 
         cargarTabla();
 
@@ -67,7 +75,7 @@ public class ControlDeStockFrame extends JFrame {
         botonReporte = new JButton("Ver Reporte");
         botonEliminar.setBounds(10, 500, 80, 20);
         botonModificar.setBounds(100, 500, 80, 20);
-        botonReporte.setBounds(190, 500, 80, 20);
+        botonReporte.setBounds(190, 500, 160, 20);
 
         container.add(tabla);
         container.add(botonEliminar);
@@ -187,9 +195,10 @@ public class ControlDeStockFrame extends JFrame {
                     Integer id = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 0).toString());
                     String nombre = (String) modelo.getValueAt(tabla.getSelectedRow(), 1);
                     String descripcion = (String) modelo.getValueAt(tabla.getSelectedRow(), 2);
+                    Integer cantidad = Integer.valueOf(modelo.getValueAt(tabla.getSelectedRow(), 3).toString());
 
                     try {
-                        this.productoController.modificar(nombre, descripcion, id);
+                        this.productoController.modificar(nombre, descripcion, cantidad, id);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
