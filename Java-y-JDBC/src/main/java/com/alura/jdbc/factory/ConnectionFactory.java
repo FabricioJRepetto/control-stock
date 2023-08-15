@@ -7,7 +7,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    private DataSource dataSource;
+    // FIXME Multiples inicializaciones
+    private final DataSource dataSource;
 
     public ConnectionFactory() {
         var pooledDataSource = new ComboPooledDataSource();
@@ -19,7 +20,11 @@ public class ConnectionFactory {
         this.dataSource = pooledDataSource;
     }
 
-    public Connection recuperarConexion() throws SQLException {
-        return this.dataSource.getConnection();
+    public Connection recuperarConexion() {
+        try {
+            return this.dataSource.getConnection();
+        } catch(SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
